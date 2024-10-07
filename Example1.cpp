@@ -1,9 +1,8 @@
-#include <bits/stdc++.h>
-using namespace std;
-int n;
+class Solution {
+public:
 vector<string>chess,tst;
 vector<vector<string>>ans;
-bool check(int row, int col){
+bool check(int row, int col,int n){
     // Test For Row
     for(int i = row,j = 0;j<tst[0].size();j++)
         if(tst[i][j] == 'Q')
@@ -26,32 +25,27 @@ bool check(int row, int col){
     return true;
        
 }
-void solve(int numQ){
+void solve(int numQ,int n){
     if(numQ == n)
     {
         ans.push_back(tst);
         return;
     }
     for(int i=0;i<n;i++)
-        if(check(i,numQ)){
+        if(check(i,numQ,n)){
             tst[i][numQ] = 'Q';
-            solve(numQ + 1);
+            solve(numQ + 1,n);
             tst[i][numQ] = '.';
         }
 
 }
-int main(){
-    scanf("%d",&n);
-    
-    for(int i=0;i<n;i++){
-        string row(n,'.');
-        tst.push_back(row);
+    vector<vector<string>> solveNQueens(int n) {
+        for(int i=0;i<n;i++)
+        {
+            string row(n,'.');
+            tst.push_back(row);
+        }
+    solve(0,n);
+    return ans;
     }
-    solve(0);
-    for(int i=0;i<ans.size();i++)
-        for(auto it:ans[i])
-            cout<< it <<endl;
-    
-
-    return 0;
-}
+};
